@@ -2,6 +2,7 @@ Ignore/
 Literature/
 Summary/
 .vscode/
+*.sh
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
