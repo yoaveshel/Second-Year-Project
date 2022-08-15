@@ -1,0 +1,215 @@
+\chapter{Complete and Algebraically Closed Extension of $\Qp$}
+The aim of the following chapter is to construct the field $\Cp$, a complete and algebraically closed extension of $\Qp$. This field takes the role of the complex numbers $\C$ in the $p$-adic world. We start by proving that $\Qp$ is not algebraically closed by showing that $\sqrt{p}\not\in\Qp$.
+\begin{prop}
+    The field $\Qp$ is not algebraically closed.
+\end{prop}
+\begin{proof}
+    Suppose there exists $x\in\Qp$ such that $x^2=p$. Then
+    $2\valp{(x)}=\valp{(x^2)}=\valp{(p)}=1.$
+    As the $p$-adic valuation on $\Qp^\times$ is always an integer, we have a contradiction. Thus $x\not\in\Qp$ and so $\Qp$ is not algebraically closed.
+\end{proof}
+Before we can move on to the algebraic closure $\overline{\Qp}$ of $\Qp$, we need to show that the $p$-adic value can, in fact, be extended to $\overline{\Qp}$, 
+\nomenclature{$\overline{K}$}{algebraic closure of a field $K$}
+\section{Extensions of absolute values}
+Let $K$ be a complete field equipped with an absolute value $\abs{\cdot}$. Before proving that $\abs{\cdot}$ can be uniquely extended to algebraic extensions of $K$, we define what it means for two absolute values to be equivalent.
+\begin{definition}
+    Two absolute values $\abs{\cdot}_1$ and $\abs{\cdot}_2$ on a field $K$ are called equivalent if they define the same topology on $K$.
+\end{definition}
+An alternative and more useful definition is given by the following proposition, the proof of which is due to \cite[p. 117]{jurgen_99}.
+\begin{prop}
+    Two non-trivial absolute values $\abs{\cdot}_1$ and $\abs{\cdot}_2$ on a field $K$ are equivalent if and only if
+    \[\abs{\alpha}_1<1\implies\abs{\alpha}_2<1\]
+    for $\alpha\in K$.
+\end{prop}
+\begin{proof}
+    Suppose the two absolute values are equivalent. For $x\in K$ we have $\abs{x}_1<1$ if and only if $x^n\to 0$ as $n\to\infty$. As $\abs{\cdot}_1$ and $\abs{\cdot}_2$ define the same topology on $K$, it follows that $\abs{x}_2<1$ as well.
+
+    Conversely, suppose that $\abs{x}_1<1\implies\abs{x}_2<1$.
+    As both absolute values are non trivial, there exists $x_0\in K$ such that
+    $\abs{x_0}_1>1$. Then $\abs{x_0}_2>1$ since $\abs{x_0^{-1}}_1<1$. Let $a=\abs{x_0}_1$, $b=\abs{x_0}_2$ and $\lambda={\log a}/{\log b}$.
+    Take $x\in K$ with $x\neq 0$. Then there exists $\alpha\in\R$ such that $\abs{x}_1=\abs{x_0}^\alpha$. Let $m,n\in\Z$, $n>0$ such that $\alpha<\frac{m}{n}$. Then $\abs{x}_1=\abs{x_0}^\alpha<\abs{x_0}_1^{{m}/{n}}$
+    and so $\abs{{x^n}/{x_0^m}}_1<1$. Thus $\abs{{x^n}/{x_0^m}}_2<1$
+    and it follows that $\abs{x}_2<\abs{x_0}_2^{m/n}$. As $\frac{m}{n}$ can get arbitrarily close to $\alpha$, it follows that $\abs{x}_2\leq\abs{x_0}_2^\alpha$. By taking $\frac{m}{n}<\alpha$ we obtain that $\abs{x_0}_2^\alpha\leq\abs{x}_2$ and so $\abs{x}_2=\abs{x_0}_2^\alpha$. Hence
+    \[\abs{x}_2^\lambda=\abs{x_0}_2^{\alpha\lambda}=\left(b^\lambda\right)^\alpha =a^\alpha=\abs{x_0}_1^\alpha=\abs{x}_1\]
+    and it follows that the two absolute values are equivalent.
+\end{proof}
+\begin{corollary}\label{cor:equiv-val}
+    If
+    \[\abs{x}_1\leq 1\implies\abs{x}_2\leq 1,\quad\forall x\in K\]
+    then $\abs{\cdot}_1$ and $\abs{\cdot}_2$ are equivalent.
+\end{corollary}
+\begin{proof}
+    Assume for contradiction that the two absolute values are not equivalent. Then there exists $\alpha\in K$ such that $\abs{\alpha}_1<1$ and $\abs{\alpha}_2\geq 1$. Similarly, there exists $\beta\in K$ such that $\abs{\beta}_1\geq 1$ and $\abs{\beta}_2<1$. Set $y=\frac{\alpha}{\beta}$, so $\abs{y}_1< 1$ and $\abs{y}_2\geq1$. Then the sequence
+    $x_n=\frac{y^n}{1+y^n}$
+    converges to 0 with respect to $\abs{\cdot}_1$ and to 1 with respect to $\abs{\cdot}_2$. Then for $0<\varepsilon<1$ there exists an $n\in\N$ such that $\abs{x_n+\varepsilon}_1\leq 1$ and $\abs{x_n+\varepsilon}_2>1$.
+\end{proof}
+
+From the properties of non-Archimedean absolute value, it immediately follow that the set of all element $x\in K$ such that $\abs{x}\leq 1$ forms a subring of $K$. It is called the valuation ring of $K$ and denoted by $\mcO_K$. 
+
+The last definition we will need is that of an integral closure of a ring.
+\begin{definition}
+    Let $A$ be a subring of of $B$. The integral closure of $A$ is in $B$ is the set of all $b\in B$ such that $b$ is a root of a monic polynomial in $A[X]$.
+\end{definition}
+The integral closure of $A$ forms a subring of $B$, which we will not prove here. For a proof, the reader is referred to \cite[p. 336]{lang_02}.
+
+We are now ready to prove that absolute values extend uniquely to extensions of $K$. 
+The following proof is given by \cite[p. 131]{jurgen_99}.
+\begin{theorem}\label{thm:abs-val-extends}
+    Let $K$ be a complete field with respect to the non-Archimedean absolute value $\abs{\cdot}$ and let $L/K$ be algebraic. 
+    Then the absolute value on $K$ extends uniquely to $L$. If $[L:K]=n<\infty$, then the extension is given by
+    \[\abs{\alpha}=\sqrt[n]{\abs{N_{L/K}(\alpha)}},\quad \alpha\in L.\]
+\end{theorem}
+\nomenclature{$N_{L/K}(\alpha)$}{field norm of $\alpha\in L$ over $K$}
+The notation $N_{L/K}(\alpha)$ denotes the \textit{field norm} of $\alpha\in L$ over $K$. 
+The reader is referred to \cite[p. 284]{lang_02} for the definition and properties.
+\begin{proof}
+    We start by considering a finite extension $[L:K]=n$.
+    
+    \textbf{Existence:} let $\alpha\in L$. It is immediate that $\abs{\alpha}\geq0, \forall\alpha\in L$. 
+    As the field norm is a field homomorphism, it follows that $\abs{\alpha}=0\iff\alpha=0$.
+    As the norm is multiplicative, for $\alpha,\beta\in L$ we have
+    $\abs{\alpha\beta}=\abs{\alpha}\abs{\beta}$.
+    
+    Lastly, we want to show that for $\alpha,\beta\in L$ we have
+    \[\abs{\alpha+\beta}\leq\max\{\abs{\alpha},\abs{\beta}\}.\]
+    By dividing by $\max\{\abs{\alpha}, \abs{\beta}\}$ and renaming if necessary, we find the it is equivalent to $\abs{\alpha}\leq 1\implies\abs{\alpha+1}\leq 1$. 
+    To prove that the latter holds, we show that the set of all $\alpha\in L$ such that $\abs{\alpha}\leq 1$ forms a ring.
+    Let
+    \begin{align*}
+        \mcO&=\{\alpha\in L\mid\abs{\alpha}\leq 1\}\\
+        &=\{\alpha\in L\mid\abs{N_{L/K}(\alpha)}\leq 1\}\\
+        &=\{\alpha\in L\mid N_{L/K}(\alpha)\in\mcO_K\}.
+    \end{align*}
+    We claim that $\mcO$ is the integral closure of $\mcO_K$. 
+    Suppose $\alpha\in L$ is integral over $\mcO_K$.
+    Then conjugates $\sigma(\alpha)$ of $\alpha$ are also integral over $\mcO_K$ by Galois theory, and so the coefficients of $f_K^\alpha$ are in $\mcO_k$.
+    Thus
+    \[N_{L/K}(\alpha)=\left(N_{K(\alpha)/K}(\alpha)\right)^{[L:K(\alpha)]}=\left(\pm a_0\right)^{[L:K(\alpha)]}\in\mcO_K,\]
+    so $\alpha\in\mcO$. 
+    Conversely, suppose that $\alpha\in L^\times$ and $N_{L/K}(\alpha)\in\mcO_K$. 
+    Let $f=X^d+a_{d-1}X^{d-1}+\cdots+a_0\in K[X]$ be the minimal polynomial of $\alpha$. Then 
+    $\left(\pm a_0\right)^{[L:K(\alpha)]}=N_{L/K}(\alpha)\in\mcO_K$
+    so $\abs{a_0}\leq1\implies a_0\in\mcO_K$. Let $a_r$ be the first coefficient amongst $a_0,a_1,\dots,a_n=1$ such that
+    $\abs{a_r}=\max\{\abs{a_0},\dots,\abs{a_{d-1}},\abs{1}\}$.
+    Then
+    \[a_r^{-1} f\equiv x^r\left(\frac{1}{a_r} x^{d-r}+\frac{a_{d-1}}{a_r}x^{d-1-r}\cdots+1\right)\mod M,\]
+    where $M$ is the maximal ideal of $\mcO_K$.
+    If $\max\left\{\abs{{a_0}/{a_r}},\abs{{1}/{a_r}}\right\}<1$, then $\abs{a_r}>1\implies 0<r<d$ which contradicts Lemma \ref{lemma:gen-hensel}. 
+    Thus $\abs{a_i}\leq 1$ for all $i=0,\dots,d$ and so $f\in\mcO_K[X]$. Hence $\mcO$ is the integral closure of $\mcO_K$ and from 
+    \[\abs{\alpha}\leq 1\iff\abs{\alpha}^{\frac{1}{n}}\leq 1, \forall n\in\N\]
+    it follows that $\mcO$ is the valuation ring of $L$.
+    Hence $\alpha\in\mcO\implies \alpha+1\in\mcO$.
+    
+    \textbf{Uniqueness:} suppose $\abs{\cdot}'$ is another absolute value on $L$ such that $\abs{x}'=\abs{x}$ for all $x\in K$. Let $\mcO$ and $\mcO'$ be the valuation rings of $\abs{\cdot}$ and $\abs{\cdot}'$ respectively. Let $M$ and $M'$ be the maximal ideals of $\mcO$ and $\mcO'$ respectively. Take $\alpha\in\mcO\setminus\mcO'$ (assuming it's nonempty) and let
+    \[f(X)=X^d+a_{d-1}X^{d-1}+\cdots+a_0\in \mcO_K[X]\]
+    be its minimal polynomial (we can take $f\in\mcO_K[X]$ since $\mcO$ is the integral closure of $\mcO_K$). Since $\alpha\not\in\mcO'$, it follows that $\alpha^{-1}\in\mcO'$. But if $\abs{\alpha^{-1}}'=1$ then $\abs{\alpha}'=1$ and $\alpha\in\mcO'$. Therefore $\alpha^{-1}\in M'$. Hence
+    \[1 = -a_{d-1}\alpha^{-1}-\cdots-a_0\alpha^{-d}\in M'\]
+    which is impossible. Therefore $\mcO\subset\mcO'$, i.e. $\abs{\alpha}\leq 1\implies\abs{\alpha}'\leq 1$ and by Corollary \ref{cor:equiv-val} the two absolute values are equivalent. Since they agree on $K\subset L$, they are equal.
+    
+    Finally, since every algebraic extension is union of finite extensions, it follows that the absolute value extends uniquely to arbitrary algebraic extensions.
+\end{proof}
+
+\begin{corollary}
+    The $p$-adic absolute value extends uniquely to $\overline{\Qp}$, the algebraic closure of $\Q_p$.
+    \begin{proof}
+        This is immediate from the last statement of the preceding theorem. 
+    \end{proof}
+\end{corollary}
+% \section{Finite extensions of $\Qp$}
+% Insert a proof that there are finitely many extensions of fixed degree here.
+
+\section{$\overline{\Q_p}$ is closed but not complete}
+A standard approach to show that $\overline{\Qp}$ is not complete is to construct a Cauchy sequence that does not converge in $\overline{\Qp}$. 
+This approach can be found, for example, in \cite[p. 219]{Gouvea_2013}. 
+However, it requires some algebraic tools that have not been developed here and so we take a different and more general approach and show that a algebraic closure of countable degree over a complete field is never complete. 
+This is done by introducing the notion of a Baire space, and proving that such a space cannot be a Baire space.
+\begin{definition}
+    A Baire space is a topological space in which the union of countably many closed sets with empty interior has an empty interior as well.
+\end{definition}
+The following lemma, which is a weaker version of \textit{Baire category theorem}, is adapted from \cite[p. 296]{munkres_2014}.
+\begin{lemma}\label{lemma:btc}
+    Every complete metric space is a Baire space.
+\end{lemma}
+\begin{proof}
+    Let $X$ be a complete metric space and $\{A_n\}_{n\in\N}$ a set of closed sets in $X$ with empty interiors. Let $U_0$ be  a non-empty, open subset of $X$. Since $A_1$ has an empty interior, there is a point $x_1\in U_0$ such that $x_1\not\in A_1$. As $A_1$ is closed and $X$ is Hausdorff, there is a neighborhood $U_1$ of $x_1$ with diameter less than 1 such that its closure does not intersect $A_1$ and $\bar{U}_1\subset U_0$. For each $n$, given an open set $U_{n-1}$, choose a point $x_{n}\in U_{n-1}$ that is not in $A_n$, and let $U_n$ be a neighborhood of $x_n$ such that: (a) $\bar{U}_n\cap A_n=\varnothing,$ (b) $\bar{U}_n\cap U_{n-1}$ and (c) $\text{diam } U_n<\frac{1}{n}$. We claim that $\bigcap\bar{U}_n$ is nonempty. Indeed, the sequence $\langle x_n\rangle$ is a Cauchy sequence in $X$ and so $x=\lim_{n\to\infty} x_n\in\bigcap\bar{U}_n$. Then $x\in U_0$ as $\bar{U}_1\subset U_0$ and since $U_n\cap A_n=\varnothing$, $x\not\in A_n$ for all $n$. Thus any open set $U_0\subset X$, intersects the set $V=\bigcap A_n^c$ and so $V$ is dense in $X$. Therefore $\text{Int}\bigcup A_n = \text{Int} \left(X\setminus\bigcap A_n^c\right)=\varnothing$.
+\end{proof}
+
+
+As any algebraic extension  $L/K$ of countable degree is a countable union of finite extension, if we can show that this finite extensions are closed in $\overline{K}$ and have an empty interior, it would follow that $\overline{K}$ is not complete.
+By viewing a field extension as a vector space over the base field, we can easily prove both statements.
+We first define the notion of a normed vector space. F
+
+Let $K$ be a field with a non-trivial absolute value $\abs{\cdot}$ and $E$ a $K$-vector space.
+A norm on $E$ is a function which satisfies the same properties as an absolute value and induces the absolute value on $K$.
+If $E$ is a finite $K$-vector space it turns out that any norm on $E$ that induce the absolute value on $K$ is equivalent to the maximum norm \cite[p. 470]{lang_02}. 
+Thus, we say that $E$ is a normed vector space over $K$. 
+\begin{lemma}\label{lemma:finite-subspaces-closed}
+    Let $V$ be a normed vector space over a complete field $K$, and $S$ a finite-dimensional subspace of $V$. Then $S$ is closed.
+\end{lemma}
+\begin{proof}
+    Let $x$ be in the closure of $S$ and $\langle s_i\rangle$ a sequence in $S$ that converges to $x$. 
+    Let $\{e_1,\dots,e_n\}$ be a basis of $S$ and let the norm on $S$ be the maximum norm. 
+    Then $s_i=\sum_{k=1}^n a_k^{(i)} e_k$ for $a_k^{(i)}\in K$ and since
+    \[\norm{s_i-s_j}=\norm{\sum_{k=1}^n\left(a_k^{(i)}-a_k^{(j)}\right)e_k}=\max_{1\leq k\leq n}\left\{\abs{a_k^{(i)}-a_k^{(j)}}\right\}\]
+    goes to 0, it follows that $\left\langle a_k^{(i)}\right\rangle_{i\in\N}$ is a Cauchy sequence in $K$, and it has a limit $a_k\in K$. Let $s=\sum_{k=1}^n a_k e_k$. As
+    $$\norm{s-s_i}=\norm{\sum_{k=1}^n\left(a_k-a_k^{(i)}\right)e_k}$$
+    goes to 0, it follows that $x=s\in S$ and so $S$ is closed.
+\end{proof}
+
+\begin{lemma}\label{lemma:subspaces-empty-interior}
+    Let $V$ be a normed vector space and $S$ a proper subspace. Then $S$ has an empty interior.
+\end{lemma}
+\begin{proof}
+    Suppose $S$ contains some ball $B(x,r)=\{y\in V\mid \norm{x-y}<r\}$ and take $z\in V$. Then $y=x+\frac{r}{2\norm{z}}z\in B(x,r)\subset S$ and since $S$ is a subspace, $z=\frac{2\norm{z}}{r}(y-x)\in S$, so $S=V$.
+\end{proof}
+
+\begin{theorem}
+    Let $K$ be a complete field with respect to a absolute value $\abs{\cdot}$ and $L/K$ a countably infinite extension. Then $L$ is not complete with respect to the extension of $\abs{\cdot}$.
+\end{theorem}
+\begin{proof}
+    Let $\{e_n\}_{n\in\N}$ be a basis for $L/K$ and $X_n=\text{span }\{e_1,\dots, e_n\}$. Then $X_n$ is closed by Lemma \ref{lemma:finite-subspaces-closed} and has an empty interior by Lemma \ref{lemma:subspaces-empty-interior}. Since $L=\bigcup_{n\in\N} X_n$, $L$ is not complete by Lemma \ref{lemma:btc}.
+\end{proof}
+
+It can be shown that for a given $n\in\N$, there are only finitely many $K\subset\overline{\Qp}$ such that $[K:\Qp]\leq n$. The proof of which can be found in  \cite[p. 54]{lang_1986}. It follows that the degree of $\overline{\Qp}/\Qp$ is countable, and so
+\begin{corollary}
+    $\overline{\Qp}$ is not complete.
+\end{corollary}
+
+\section{$\C_p$ is complete and algebraically closed}
+By Theorem \ref{thm:unique-completion}, there exists a unique (up to isomorphism) field extension $\Cp$ of $\overline{\Qp}$ that is complete with respect to the extension of $\absp{\cdot}$. 
+\begin{definition}
+    The field $\Cp$ is the unique completion of $\overline{\Qp}$ with respect the $p$-adic absolute value.
+\end{definition}
+
+To prove that $\Cp$ is also algebraically closed, we need to prove that every polynomial in $\Cp$, splits in $\Cp$. It follows from the following theorem that completions of algebraic closures of complete fields are always algebraically closed.
+\begin{theorem}
+    Let $K$ be a complete field with a non-archimdean and non-trivial absolute value $\abs{\cdot}$. Then the completion $L$ of $\overline{K}$ is algebraically closed.
+\end{theorem}
+\begin{proof}
+    The field $L$ exist and is unique up to isomorphism by Theorem \ref{thm:unique-completion}.
+    Let $f(X)=X^n+a_{n-1}X^{n-1}+\cdots+a_0\in L[X]$, $n>0$. Since any $x\in L$ is a limit of a Cauchy sequence in $\overline{K}$, it follows that $\overline{K}$ is dense in $L$. Thus there exist $f_j=X^n+a_{n-1}^{(j)}X^{n-1}+\cdots+a_0^{(j)}\in\overline{K}[X]$ such that $\lim_{j\to\infty} a_i^{(j)}=a_i$. If $a_i\neq 0$ we can choose the sequence $a_i^{(j)}$ such that $\abs*{a_i^{(j)}-a_i}<\min\{\abs{a_i}, 1/j\}$ for all $j$. If $a_i=0$ then we may take $a_i^{(j)}=0$. Thus we have $\abs*{a_i^{(j)}}=\abs{a_i}$ and $\abs*{a_i^{(j)}-a_i}<\frac{1}{j}$ for all $j$. As $\overline{K}$ is algebraically closed, for each $j$ there is a root $r_j$ of $f_j$ in $\overline{K}$. We want to find a convergent subsequence of $\langle r_j\rangle_j$ so it has a limit $r\in L$ with $f(r)=0$.
+    
+    As $f_j(r_j)=0$ $\forall j$, we have
+    $$\abs{r_j`^n}=\abs{-\sum_{i=0}^{n-1}a_i^{(j)}r_j^i}\leq\max_{0\leq i\leq n-1}\abs{a_i^{(j)}}\abs{r_j}^i=\max_{0\leq i\leq n-1}\abs{a_i}\abs{r_j}^i$$
+    since $\abs{a_i^{(j)}}=\abs{a_i}$. Thus, there exists $0\leq k\leq n-1$ such that $\abs{r_j}^n\leq\abs{a_k}\abs{r_j}^k$ for all $j$. Let $a=\max\{\abs{a_0}^\frac{1}{n}, \abs{a_1}^\frac{1}{n-1},\dots,\abs{a_n}, 1\}$, then $\abs{r_j}\leq a$ for all $j$.
+    Next we have
+    \begin{align*}
+        \abs{f(r_j)}&=\abs{f(r_j)-f_j(r_j)}\\
+        &=\abs{-\sum_{i=0}^n\left(a_i-a_i^{(j)}\right)r_j^i}\\
+        &\leq\max_{0\leq i\leq n-1}\abs{a_i-a_i^{(j)}}\abs{r_j}^i\\
+        &\leq\abs{a_i-a_i^{(j)}} a^{n-1}.
+    \end{align*}
+    Since $\abs{a_i^{(j)}-a_i}\leq\frac{1}{j}$, it follows that $\abs{f(r_j)}\leq\frac{a^{n-1}}{j}$ so $f(r_j)\to 0$ as $j\to\infty$.
+    
+    Let $F=\Omega_L^f$. As $F/L$ is algebraic of finite degree, the absolute value on $L$ extends uniquely to $F$ by Theorem \ref{thm:abs-val-extends}. Then $f(X)=\prod_{i=1}^n X-\alpha_i\in F[X]$ and $\prod_{i=1}^n\abs{r_j-\alpha_i}\to0$ in $\R$. Therefore there exists some $k_0$ such that $\langle\abs{r_j-\alpha_{k_0}}\rangle_j$ has a subsequence converging to 0. Thus $r_j$ has a subsequence $r_{j_k}$ converging to $\alpha_{k_0}$ in $F$. Therefor $r_{j_k}$ is a Cauchy sequence in $L$ and so $\alpha_{k_0}\in L$ since $L$ is complete. It follows that $L$ is algebraically closed.
+\end{proof}
+As $\Cp$ is the completion of $\overline{\Qp}$, it follows that
+\begin{corollary}
+    $\Cp$ is a algebraically closed.
+\end{corollary}
+
+It is unclear at this point what is the algebraic structure of $\Cp$. 
+As it is a complete and algebraically closed field, it is tempting to associate it with the field of complex numbers, $\C$. It is in fact true that $\Cp$ and $\C$ are isomorphic, but unfortunately we cannot explicitly construct this isomorphism. For the details of the proof, see \cite[p. 144]{Robert_2013}.
+
+
+

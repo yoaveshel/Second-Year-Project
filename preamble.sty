@@ -1,0 +1,93 @@
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\graphicspath{ {figures/} }
+
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{lipsum}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{amsthm}
+\usepackage[nottoc, notlot, notlof]{tocbibind}
+\settocbibname{References}
+
+\DeclareMathOperator{\ord}{ord}
+
+% Defining the list of notation
+% Use \nomenclature{notation}{description} after a notation is first used to add it to the list 
+\usepackage[refpage]{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{Frequently Used Notation}
+
+% Defining \frontmatter and \mainmatter
+% These commands change the behaviour of the page numbering
+\makeatletter
+    \newcommand\frontmatter{%
+        \cleardoublepage
+    %\@mainmatterfalse
+    \pagenumbering{roman}}
+
+    \newcommand\mainmatter{%
+        \cleardoublepage
+    % \@mainmattertrue
+    \pagenumbering{arabic}}
+
+    \newcommand\backmatter{%
+    \if@openright
+        \cleardoublepage
+    \else
+        \clearpage
+    \fi
+    % \@mainmatterfalse
+    }
+\makeatother
+
+
+% Math enviroments
+\theoremstyle{plain}                    
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}    
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem*{maintheorem}{Proposition A}  % special theorem
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}  
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% Maths
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\R}{\field{R}} % real numbers
+\newcommand{\N}{\field{N}} % natural numbers
+\newcommand{\Q}{\field{Q}} % rational numbers
+\newcommand{\Qp}{\Q_p} %p-adic numbers
+\newcommand{\C}{\field{C}} % complex numbers
+\newcommand{\Cp}{\C_p}
+\newcommand{\Z}{\field{Z}} % integers
+\newcommand{\Zp}{\field{Z}_p}
+\newcommand{\mcO}{\mathcal{O}}
+\newcommand{\F}{\field{F}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\newcommand{\normp}[1]{\norm{#1}_p} % p-adic norm 
+\newcommand{\absp}[1]{\abs{#1}_p} % p-adic absolute value
+\newcommand{\val}[1]{v_#1} % p-adic valuation with specific prime number
+\newcommand{\valp}{\val{p}} % p-adic valuation

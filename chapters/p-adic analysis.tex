@@ -1,0 +1,111 @@
+\chapter{$p$-adic Analysis}
+The field of $p$-adic analysis is vast, and many things from real analysis translate to the $p$-adic world, with unique and surprising property.
+We discuss here only one interesting application of $p$-adic number, called Newton polygons. 
+This method assigns a polygon to every polynomial and power series with coefficients in $\Cp$, which tells us a lot about the roots of that polynomial and the radius of converges of the power series.
+\section{Newton polygons for polynomials}
+In this section we shall denote $f(X)$ as a polynomial of the form $f(X) = 1 + \sum_{i=1}^{n} a_i X^i$ with $a_i \in \C_p$. Since $\C_p$ is algebraically closed, every polynomial $f(X)$ in $\C_p[X]$ has a root and we will discover the behavior of said roots using Newton polygon.
+
+Using the coefficients of $f(X)$, plot the following points 
+\[(0,0), \left(1, \valp{(a_1)}\right), \left(1, \valp{(a_2)}\right),\dots,\left(1, \valp{(a_n)}\right)\] 
+on a plane and if any $a_i = 0$, we simply ignore it. Then the Newton polygon can be constructed as follow: from the point $(0, 0)$ construct a vertical line through $(0, 0)$ and rotate it counter clockwise until it hits a second point then said line is a segment joining $(0, 0)$ and $(i, \valp{a_i})$. 
+Repeat the same process for every other points to finish the construction. 
+This generates the lower boundary of the convex hull of the above set of points.
+For each segments in a Newton polygon, we need to pay attention these items:
+\begin{enumerate}
+    \item The slope of the segment.
+    \item The length of the projection of the segment onto the $x$-axis.
+    \item The values of $i$ at each vertices or breaks of the polygon.
+\end{enumerate}
+The reason why said items are special will become apparent soon. 
+\begin{example} Let $f(X) = 1 + X^2 + 1/3 X^3 + 3X^4$ with $p = 3$. Then the points are $(0,0)$, $(2,0)$, $(3, -1)$, $(4, 1)$. 
+\end{example}
+
+\pgfplotsset{my style/.append style={axis x line=middle, axis y line=middle, xlabel={$x$}, ylabel={$y$} }}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[my style, xtick={-1,0,...,4}, ytick={-1,0,...,2},xmin=0, xmax=4,  ymin=-1, ymax=1]
+    \addplot[mark=*, only marks] coordinates {(0,0)(2,0)(3,-1)(4,1)};
+    \addplot[mark=*] coordinates {(0,0)(3,-1)(4,1)};
+    \end{axis}
+    \end{tikzpicture}
+    \label{fig:newton-polygon}
+    \caption{The Newton polygon of $f(X)=1+X^2+1/3 X^3+3X^4\in\C_3[X]$}
+\end{figure}
+
+As it turns out, the slopes of the Newton polygon count the number of roots of a given absolute value. The following theorem is adapted from \cite[p. 97]{Koblitz_2012}
+\begin{theorem}
+Let $f(X) = (1 - X/\alpha_1)(1 - X/\alpha_2)...(1 - X/\alpha_n)$ be the factorization of $f(X)$ in terms of its roots in $\C_p$. Let $\lambda_i = \valp{(1/\alpha_i)}$. Then if $\lambda$ is a slope of the Newton polygon having length $l$, it follows that there are $l$ of $\lambda_i$ equal to $\lambda$ (counting multiplicities). 
+\begin{proof}
+Suppose that the roots $\alpha_i$ are arranged in such a way that $\lambda_1 \leq \lambda_2 \leq ... \lambda_n$. Assume that $\lambda_1 = \lambda_2 = ... = \lambda_r < \lambda_{r + 1}$ for $r \in \{2,3,...,n\}$. We first claim that the first segment of the polygon is the segment joining $(0,0)$ and $(r, r\lambda_1)$. Recall that each $a_i$ is expressed in terms of $1/\alpha_1$, $1/\alpha_2$, ..., $1/\alpha_n$ as the sum of all possible products of $i$ of the $1/\alpha$'s. Since $p$-adic valuation of such product is at least $i\lambda_i$, the same is true for $a_i$, so the point $(i, \valp{(a_i)})$ is on or above the point $(i, i\lambda_1)$.\\
+\indent Now consider $a_r$. Of the various products of $r$ of the $1/\alpha$'s, exactly one has the valuation $r\lambda_1$, namely, the product $1/(\alpha_1 \alpha_2 ... \alpha_r)$. All of the other products have valuation $> r\lambda_1$ since we must include at least one of the $\lambda_{r+1},\lambda_{r+2},...,\lambda_n$. Thus, $a_r$ is a sum of something with valuation $r\lambda_1$ and something with valuation $> r\lambda_1$, so by a property of the non-Archimedean norm, $\valp{(a_r)} = r\lambda_1$. \\
+\indent Suppose that $i > r$. In the same way as before, we see that all of the products of $i$ of the $1/\alpha$'s have valuation $> i\lambda_i$. Hence, $\valp{a_i} > i\lambda_i$. If we now think of how Newton polygon is constructed, we see that we have shown that its first segment is the line joining $(0,0)$ with $(r, r\lambda_i)$.\\
+\indent If for $s \in \{1,2,..., n\}$, we have $\lambda_s < \lambda_{s + 1} = \lambda_{s + 2} = ... = \lambda_{r} < \lambda_{r + 1} < ... < \lambda_{n}$ with $r \in \{s, s+1, ..., n \}$, then the line joining $(s, \sum_{i=1}^{s} \lambda_i)$ to $(r, \sum_{i=1}^{s} \lambda_i + (r - s)\lambda_{s+1})$ is a segment of the Newton polygon can be proved analogously. 
+\end{proof}
+\end{theorem}
+In other words, the slopes of the Newton polygon of $f(X)$ are the valuations of the reciprocal roots of $f(X)$ (counting multiplicities). 
+
+\begin{example} Let $f(X) = 1 + 1/25 X^2 + 5X^3 + 25X^4 + 7X^5$ with $p = 5$. Then we have a set of points $(0,0)$, $(2,-2)$, $(3,1)$, $(4,2)$, $(5,0)$ with its Newton polygon
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[my style, xtick={0,1,...,5}, ytick={-2,-1,0,...,2},xmin=0, xmax=5,  ymin=-2, ymax=2]
+    \addplot[mark=*, only marks] coordinates {(0,0)(2,-2)(3,1)(4,2)(5,0)};
+    \addplot[mark=*] coordinates {(0,0)(2,-2)(5,0)};
+    \end{axis}
+    \end{tikzpicture}
+    \label{fig:newton-polygon2}
+    \caption{Newton polygon of $f(X)=1+1/25 X^2+5X^3+25X^4+7X^5\in\C_5[X]$}
+\end{figure}
+Observably, there are two segments of slopes $-1$, $2/3$ and lengths $2$, $3$ respectively. Thus, there are two and three roots with absolute value $5$ and $5^{-2/3}$ respectively. 
+\end{example}
+
+
+\section{Newton polygons for power series}
+Having studied the Newton polygon for a polynomial, one of the natural next steps is to consider the Newton polygon of a power series $f(X) = 1 + \sum_{i=1}^{\infty} a_i X^i$ with $a_i \in \C_p$. 
+The rules for the construction of the Newton polygon shall be revised as: start with the vertical half-line which is in negative part of the $y$-axis and rotate that line counter-clockwise until one of the following occurs:
+\begin{enumerate}
+    \item The line simultaneously hits infinitely many of the points plotted. In this case, stop and the construction is complete.
+    \item The line reaches a position where it contains only one of our points but can be rotated no further without leaving behind some points. In this case, stop and the construction is complete.
+    \item The line hits a finite number of the points. In this case, break the line at the last point that was hit and begin the whole construction again.
+\end{enumerate}
+
+\begin{example}
+Let $f(X) = 1 + \sum_{i=1} p^i X^i$, Then the points are $(0,0)$, $(1,1)$, $(2,2)$, ... 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[my style, xtick={0,1,...,6}, ytick={0,1,...,6},xmin=0, xmax=6,  ymin=0, ymax=6]
+    \addplot[mark=*, only marks] coordinates {(0,0)(1,1)(2,2)(3,3)(4,4)(5,5)};
+    \addplot[mark=*] coordinates {(0,0)(1,1)(2,2)(3,3)(4,4)(5,5)};
+    \end{axis}
+    \end{tikzpicture}
+    \label{fig:newton-polygon-for-powerseries}
+    \caption{Newton polygon of $1 + \sum_{i=1} p^i X^i$}
+\end{figure}
+\end{example}
+Similar to that of a polynomial, the Newton polygon also gives us useful information about its zeros but for the purpose of this paper, we shall only look at its radius of convergence. 
+We start by proving the following lemma, which is one of the many nice properties of non-Archimedean absolute values.
+
+
+\begin{lemma}
+Let $\langle a_k \rangle$ be a sequence in $\C_p$. Then $\sum_{k=0}^{\infty} a_k$ converges in $\C_p$ if and only if $\lim_{k \rightarrow \infty} a_k = 0$.
+\begin{proof}
+Since the first implication is a known result, we shall only show the converse. Suppose that $a_k \rightarrow 0$ as $k \rightarrow \infty$. Let $A_n := \sum_{k=0}^n a_k$ be the partial sum of the series then for any integers $m,n$ with $0 < m < n$ we have 
+\[ \absp{A_n - A_m} = \absp{\sum_{k=m+1}^n a_k} \leq \max (\absp{a_{m+1}},...,\absp{a_n}) \rightarrow 0 \ \text{as} \ m,n \rightarrow \infty. \]
+So the partial sums $A_n$ forms a Cauchy sequence, hence must converge to a limit in $\C_p$. 
+\end{proof}
+\end{lemma}
+
+\begin{theorem}
+Let $b$ be the least upper bound of all slopes of the Newton polygon of $f(X)$. Then the radius of convergence is $p^b$ (if $b$ is infinite then $f(X)$ converges on all of $\C_p$).
+\begin{proof}
+First let $x \in \C_p$ and $\absp{x} < p^b$, i.e., $\valp{(x)} > -b$. Let $\valp{(x)} = -b'$, where $b' < b$. Then $\valp{(a_i x_i)} = \valp{(a_i)} - ib'$. 
+But it is clear that, sufficiently far out, the point $(i, \valp{(a_i)})$ lies arbitrarily far above $(i, b'i)$, in other words, $\valp{(a_i x^i)} \rightarrow \infty$, and $f(X)$ converges at $X = x$.\\
+\indent Now let $\absp{x} > p^b$, i.e., $\valp{(x)} = -b' < -b$. Then we find in the same way that $\valp{(a_i x^i)} = \valp{(a_i)} - b'i$ is negative for infinitely many values of $i$. Thus $f(x)$ does not converge. 
+\end{proof}
+\end{theorem}
+In other word, by drawing the Newton polygon and the line $y=\valp(a)x$ it is immediate that power series converges at $a$ if the Newton polygons lies above the line for large enough values of $i$.
+
+

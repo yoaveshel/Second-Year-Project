@@ -1,0 +1,207 @@
+\chapter{$p$-adic Numbers}
+The expansion of a $p$-adic integer resembles the decimal expansion of a real number. 
+However, the decimal expansion converges while the $p$-adic expansion might not. 
+As the field of real numbers is the set of all decimal expansions, we can construct the field $\Qp$ of all $p$-adic expansions by replacing the ordinary absolute value with a $p$-adic one.
+
+\section{$p$-adic absolute value}\label{sec:p-adic-metric}
+Let $x=a/b\in\Q$ and $p$ prime. Then we can write $x=p^m\frac{a'}{b'}$ with $m\in\Z$ (or $m=\infty$ if $x=0$) and $\gcd(a'b', p)=1$.
+The $p$-adic absolute value of $x$ is given by $\absp{x}=p^{-m}$ and is easily checked to verify the usual properties: 
+\begin{itemize}
+    \item $\absp{a}\geq 0$ and $\absp{a}=0\iff a=0$
+    \item $\absp{ab}=\absp{a}\absp{b}$
+    \item $\absp{a+b}\leq\absp{a}+\absp{b}$
+\end{itemize}
+for all $a,b\in\Q$.
+
+The number $m$ associated with $x$ is called the $p$-adic valuation of $x$ and is denoted $\valp(a)$
+This gives the map $\valp:\Q\to\Z\cup\{\infty\}$. We then have
+
+\begin{prop}\label{prop:strong-ord}
+The map $\valp:\Q\to\Z\cup\{\infty\}$ satisfies
+\begin{enumerate}
+    \item $\valp(x)=\infty\iff x=0$
+    \item $\valp(xy)=\valp(x)+\valp(y)$
+    \item $\valp(x+y)\geq\min\{\valp(x),\valp(y)\}$
+\end{enumerate}
+\end{prop}
+\begin{proof}
+    The first two properties are readily verified. For the third, if $x+y=0$ then $\valp(x+y)=\infty$ and the proof is trivial.
+    So take $x,y\in\Q$ with $x+y\neq 0$ and without loss of generality, assume that $\valp(x)\leq\valp(y)$.
+    Let $x=a/b$ and $y=c/d$. It is clear from the definition that $\valp(x)=\valp(a)-\valp(b)$ and so we have
+    \[\valp(x)\leq\valp(y)\implies\valp(ad)\leq\valp(bc).\]
+    Let $\valp(ad)=m$ and $\valp(bc)=n$. Then $ad+bc=p^mk_1+p^nk_2$ with $k_1,k_2\in\Z$ and since $m\leq n$ it follows that $p^m\mid ad+bc$.
+    Thus $\valp(ad+bc)\geq\valp(ad)$ and so 
+    \[\valp(x+y)=\valp\left(\frac{ad+bc}{bd}\right)=\valp(ad+bc)-\valp(bd)\geq\valp(a)-\valp(b)=\valp(x).\]
+\end{proof}
+
+From proposition \ref{prop:strong-ord} it follows that for $x,y\in\Q$ nonzero with $\valp(x)\leq\valp(y)$  and $x+y\neq0$ we have
+\[\absp{x+y}=p^{-\valp(x+y)}\leq p^{-\valp(x)}=\absp{x}\]
+and so $\absp{x+y}\leq\max\{\absp{x},\absp{y}\}$. By defining $p^{-\infty}=0$, the result extends to all of $\Q$.
+Notice that this property is stronger than the usual triangle inequality, and so the $p$-adic absolute value is \textit{non-Archimedean}
+as opposed to the ordinary absolute value on $\Q$. As one may expect, this property is quite unintuitive. 
+For example, every point $a_2$ in an open disk $D(a_1, r)=\{x\in\Q\mid \absp{x-a_1}<r\}$ \nomenclature{$D(a,r)$}{open disk of radius $r$ centered at $a$} is its center.
+That is becuase for any $x\in D(a_1, r)$ we have
+\[\absp{x-a_2}=\absp{(x-a_1)+(a_1-a_2)}\leq\max\{\absp{x-a_1}, \absp{a_1-a_2}\}\leq r\]
+so $x\in D(a_2, r)$. We can similarly show that $x\in D(a_2, r)$ implies that $x\in D(a_1,r)$ and so $D(a_1,r)=D(a_2, r)$.
+
+
+\section{The field $\Qp$}\label{sec:field-qp}
+From real analysis, we know that $\R$ is the completion of $\Q$ with repspect to a standard absolute value, i.e. $\R$ is a complete field, the absolute value in $\R$ is induced by the absolute value on $\Q$ and $\Q$ is dense in $\R$.
+In this section we construct the field $\Qp$ as the completion of $\Q$ with repspect to $\absp{\cdot}$ in a similar manner. 
+First recall that
+\begin{definition}
+A field $K$ with an absolute value $\abs{\cdot}$ is complete if every Cauchy sequence in $K$ has a limit in $K$.
+\end{definition}
+Due to Ostrowski, we know that there countably many non-equivalent\footnote{A more rigorous discussion what it means for two absolute values to be equivalent is found in Chapter 3. For now, an intuitive understanding of "equivalent" will suffice.} absolute values on $\Q$. Namely, the trivial absolute value which maps all non-zero elements to one, the ordinary absolute value and the $p$-adic absolute value(s) \cite[p. 46]{Gouvea_2013}.
+As it turns out, $\Q$ is not complete with respect to any of its non-trivial absolute values. 
+It is easy to show that $\Q$ is not compelte with repspect to the ordinary absolute value: consider the sequence given by $x_1=2$ and $x_n=\frac{1}{2}x_n+\frac{1}{x_n}$ which converges to $\sqrt{2}\not\in\Q$.
+To show that $\Q$ is not complete with respect to the $p$-adic absolute value requires some more work. 
+The following theorem is one of the many nice properties of non-Archimedean absolute values which will be used in showing that $\Q$ is not complete.
+\begin{theorem}\label{thm:nonarch-cauchy}
+Let $F$ be a field with a non-Archimedean norm $\abs{\cdot}$ and $\langle x_n \rangle$ a sequence in $F$. Then $\langle x_n \rangle$ is a Cauchy sequence if and only if 
+$\lim_{n \rightarrow \infty} \abs{ x_{n+1} - x_n} = 0.$
+\end{theorem}
+\begin{proof}
+The first implication is immidiate. Suppose that $\langle x_n\rangle$ is a sequence such that $\abs{x_{n+1}-x_n}\to0$.
+Let $k > 0$ and $m = n + k$ then we have 
+\begin{align*}
+    \abs{ x_m - x_n} &= \abs{ x_{n+k} - x_{n+k-1} + x_{n+k-1} + ... - x_n }\\
+    &\leq \max (\abs{x_{n+k} - x_{n+k-1}}, \abs{x_{n+k - 1} - x_{n+k-2}}, ..., \abs{x_{n+1} - x_n})\\
+    &\leq \abs{x_{n+h} - x_{n+h-1}},\quad\text{for some $h \in \{1,2,...,k\}$}.
+\end{align*}
+As the last expression goes to 0 by assumption, $\langle x_n \rangle$ is Cauchy. 
+\end{proof}
+
+
+We can now prove that the field $\Q$ is not complete with respect to the $p$-adic absolute value.
+\begin{theorem} 
+    The field $\Q$ is not complete with respect to $\absp{\cdot}$.
+\end{theorem}
+\begin{proof}
+If $p\in\{2,3\}$, the proof is more complicated and requires Hensel's lemma. A sketch of the proof is given in the end of section \ref{sec:hensels-lemma}.
+
+Suppose $p>3$. Let $1<a<p-1$ and define the sequence $x_n=a^{p^n}$.
+Then 
+\[\absp{x_{n+1}-x_n}=\absp{a^{p^n}\left(a^{(p-1)p^n}-1\right)}\leq p^{-n}\]
+where the last inequality follows from Euler's theorem as $a^{(p-1)p^n}=a^{\phi(p^n)}\equiv 1\mod p^n$. Thus $\langle x_n\rangle$ is a Cauchy sequence.
+Suppose that $x_n\to x\in\Q$. Since the roots of $X^p-X$ are the $\frac{p-1}{2}$th primitive roots of unity, $\pm 1$ and $0$, it follows that $x=0,\pm1$.
+As $p\nmid a^{p^n}$ for all $n$, $\absp{x_n}=1$ for all $n$, and so $\absp{x}=\lim_{n\to\infty}\absp{x_n}=1$. Thus $x\neq 0$.
+If $x=\pm 1$, then $0<x-a<p$ and so $\absp{x-a}=1$. Thus there exists $n\in\N$ such that $\absp{a^{p^n}-x}<\absp{x-a}$.
+It is easy to check that $\absp{x-a}\leq\max\{\absp{x-a^{p^n}},\absp{a^{p^n}-a}\}$ implies that $\absp{x-a}=\absp{a^{p^n}-a}$.
+But $\absp{a^{p^n}-a}=\absp{a^{p^{n-1}}-1}$ and by Fermat's little theorem we have $a^{p^{n-1}}-1\equiv0\mod p$ so $\absp{x-a}<1$, contradicting our previous assertion.
+Thus $x\not\in\Q$ and it follows that $\Qp$ is not complete with respect to the $p$-adic norm for all primes $p$.
+\end{proof}
+
+We now know that $\Q$ is not complete, but it is unclear how to obtain a complete extension of $\Q$, and in particular, how does the $p$-adic absolute value extends.
+It turns out that one can mimic the Cauchy construction of $\R$ by letting $\Qp$ be the set of equivalence classes of Cauchy sequences in $\Q$ with respect to the $p$-adic norm. The proof is adapted from \cite[p. 468]{lang_02}.
+
+\begin{theorem}\label{thm:unique-completion}
+Let $K$ be a field with an absolute value $\abs{\cdot}$. 
+Then there exists a field $K'$ with an absolute value $\abs{\cdot}'$ and an embedding $i:K\to K'$ such that $\abs{i(x)}'=\abs{x}$ for $x\in K$ and the image of $K$ is dense in $K'$.
+The field $K'$ is unique up to isomorphism. Moreover, if $\abs{\cdot}$ is non-Archimedean, then $\abs{\cdot}'$ is non-Archimedean.
+\end{theorem}
+\begin{proof} 
+    The set $R$ of Cauchy sequences in $K$ forms a ring, with addition and multiplication defined componentwise.
+    We call a sequence $\langle x_n\rangle$ a \textit{null sequence}, if $x_n\to 0$. 
+    As any Cauchy sequence that is not null, will stay away from 0 for sufficiently large $n$, we can then take the inverse of almost all the terms. For finitely many of them, we again obtain a Cauchy sequence.
+    Thus the set of all null-sequences $M$ forms a maximal ideal in $R$. 
+    
+    We then define $K'$ as $R/M$ and the embedding $i$ is the map sending $x\in K$ to the class of constant Cauchy sequences $(x,x,\dots)$.
+    The absolute value $\abs{\cdot}'$ is defined by continuity, i.e. for an element $\alpha\in K'$ representing a sequence $\langle x_n\rangle$ we have $\abs{\alpha}'=\lim_{n\to\infty}\abs{x_n}$.
+    This limit exists since $\abs{\abs{x_n}-\abs{x_m}}\leq\abs{x_n-x_m}$ implies that $\abs{x_n}$ is a Cauchy sequence in $\R$. 
+    It is immediate that $\abs{\cdot}'$ has the usual properties independently of the choice of $x_n$ and that $\abs{i(x)}'=\abs{x}$ for all $x\in K$. 
+    If $\abs{\cdot}$ is non-Archimedean, then for $\alpha,\beta\in K'$ representing the sequences $\langle x_n\rangle, \langle y_n\rangle$ (respectively) in $K$, we have
+    \[\absp{\alpha+\beta}'=\lim\abs{x_n+y_n}\leq\lim\max\{\abs{x_n}, \abs{y_n}\}=\max\{\abs{\alpha}',\abs{\beta}'\}.\]
+
+    To show that $K'$ is complete, let $\alpha_n$ be a Cauchy sequence in $K'$. Then there exist $x_n\in K$ such that $\abs{\alpha_n-i(x_n)}'<\frac{1}{n}$. 
+    The sequence $x_n$ forms a Cauchy sequence in $K$ with a limit $\alpha\in K'$. As
+    \[\abs{\alpha_n-\alpha}'\leq\abs{\alpha_n-i(x_n)}'+\abs{i(x_n)-\alpha}'\]
+    it follows that $\alpha_n\to\alpha$ and so $K'$ is complete. 
+
+    For any $\alpha\in K'$ represented by a sequence $\langle x_n\rangle$ in $K$, there exists an $x_N$ for $N \in \N$ so that $i(x_N)$ is arbitrarily close to $\alpha$ and so $i(K)$ is dense in $K'$.
+    Finally, uniqueness is immediate, since for any complete field $\hat{K}$ that contains $K$ as a dense subfield, we can map limits in $\hat{K}$ of Cauchy sequences in $K$ to their representatives in $K'$. 
+\end{proof}
+
+Thus the extension $\Qp/\Q$ exists and is unique, and there is a well defined absolute value on $\Qp$ which is induced by the $p$-adic absolute value on $\Q$.
+As a result, we will denote the absolute value on $\Qp$ as $\absp{\cdot}$ as well.
+
+Let $K$ be a complete field w.r.t. a non-Archimedean absolute value $\abs{\cdot}$. 
+Let $\mcO_K=\{x\in K\mid \abs{x}\leq 1\}$. It is immediate from the properties of non-Archimedean absolute values that $\mcO_K$ is a ring. 
+We calle this the valuation ring of $K$. 
+Similarly, it can be found that $M=\{x\in K\mid \abs{x}<1\}$ is an ideal of $\mcO_K$. 
+To show that $M$ is the unique maximal ideal of $\mcO_K$, take $\alpha\in\mcO_K\setminus M$. Then $\abs{\alpha}=1$ so $\abs{\alpha^{-1}}=1$ and it follows that any ideal containing $\alpha$ must be the whole ring. 
+If $K$ is complete and $\langle x_n\rangle$ is a Cauchy sequence in $\mcO_K$ with limit $x\in K$, then $\abs{x_n}$ is a Cauchy sequence in $[0,1]$ and so $x\in\mcO_K$.
+We summarize our results in the following proposition.
+\begin{prop}
+    Let $K$ be field with a non-Archimedean absolute value $\abs{\cdot}$.
+    The subset $\mcO_K=\{x\in K\mid \abs{x}\leq 1\}$
+    is a ring with a unique maximal ideal $M=\{x\in K\mid \abs{x}<1\}$.
+    If $K$ is complete, then $\mcO_K$ is complete.
+\end{prop}
+\nomenclature{$\mcO_K$}{valuation ring of a field $K$}
+
+The valuation ring of $\Qp$ is called the $p$-adic integers and denoted by $\Z_p$.
+
+\section{Hensel's Lemma}\label{sec:hensels-lemma}
+At this point, the only understanding we have of $p$-adic numbers is that their are limits of Cauchy sequences in $\Q$. 
+Recall that we can write any rational number as a $p$-adic expansion, but not every $p$-adic expansion corresponds to a rational number.
+This is analogous to the inclusion $\C(X)\hookrightarrow C((X-\alpha))$ of the field of rational functions to the field of finite-tailed Laurent series in $(X-\alpha)$.
+Let $K$ denote the field of all elements of the form $\sum_{i\geq k} a_i p^i, a_i\in\{0,1,\dots,p-1\}$ where $k\in\Z$ and $a_k\neq 0$. 
+It is clear that for any $\alpha\in K$,  $\alpha\in\Qp$ since the partial sums form a Cauchy sequence in $\Q$ and that for $\alpha\in K$, $\absp{\alpha}=p^{-k}$.
+If $\alpha_n=\sum_{i\geq k_n} a_i^{(n)}p^i$ forms a Cauchy sequence in $K$, then the partial sums $x_n=\sum_{i=k_n}^{n-1}a_i^{(n)}p^i$ form a Cauchy sequence in $\Q$ with a limit $\alpha\in\Qp$. Then
+\[\absp{\alpha_n-\alpha}\leq\max\{\absp{\alpha_n-x_n}, \absp{x_n-\alpha}\}=\max\{p^{-n}, \abs{x_n-\alpha}\}.\]
+Thus $K$ is complete and so
+
+\begin{prop}
+For every $\alpha\in\Qp$ there exists $k\in\Z$ such that
+\[\alpha=\sum_{i\geq k}a_ip^i,\quad a_i\in\{0,1,\dots, p-1\}, a_k\neq 0\]
+and $\valp(\alpha)=k$. Conversely, for every $k\in\Z$ there exists $\alpha\in\Qp$ with $\valp(\alpha)=k$.
+\end{prop} 
+
+We are now ready to prove Hensel's lemma, which is one of the most important theorems of $p$-adic numbers. Using Hensel's lemma, we can, in many cases, quite easily determine whether a polynomial has a roots in $\Zp$.
+There are in fact many forms of Hensel's lemma, and we give here the proof of only one, together with a more general statement which we will not prove here.
+The idea is that in $\R$, we can sometime decide on the existence of roots by looking at the sign of a polynomial. For example, since $x^2+1>1$ for all $x\in\R$, $\R$ is not algebraically closed.
+In the $p$-adic world, this translates to reduction $\mod p$. The following proof is adapted from \cite[p. 89]{Gouvea_2013}.
+
+\begin{theorem} 
+    Let $P(X) = a_nX^n+a_{n-1}X^{n-1}+\cdot+a_0$ be a polynomial with coefficients in $\Zp$. 
+    Suppose that there exists $\alpha_1 \in \Z_p$ such that $P(\alpha_1)\equiv 0\mod p\Zp$ and $P'(\alpha_1)\not\equiv 0\mod p\Zp$ where $P'$ is the formal derivative of $P$. 
+    Then there exists a unique $\alpha \in \Z_p$ such that $\alpha \equiv \alpha_1\mod p\Z_p$ and $P(\alpha) = 0$.
+\end{theorem}
+\begin{proof}
+    We construct a unique Cauchy sequence $\langle \alpha_n\rangle$ in $\Zp$ such that for all $n \geq 1$: (a) $P(\alpha_n) \equiv 0\mod p^{n}$ and (b) $\alpha_n \equiv \alpha_{n-1}\mod p^{n}$.
+    
+    We assume that $\alpha_1$ exists. To find $\alpha_2$, note that by condition (b) it must be of the form $\alpha_2=\alpha_1+b_1p$, for $b_1\in\Zp$.
+    Using the Taylor expansion of $P(X)$ around $\alpha_1$ we obtain
+    \begin{align*}
+        P(\alpha_2)&=P(\alpha_1+b_1p)\\
+        &=P(\alpha_1)+P'(\alpha_1)b_1p+\text{terms divisible by }p^2\\
+        &\equiv P(\alpha_1)+P'(\alpha_1)b_1p\mod p^2.
+    \end{align*}
+    Thus we need $b_1$ such that $P(\alpha_1)+P'(\alpha_1)b_1p\equiv 0\mod p^2$. From $P(\alpha_1)\equiv 0\mod p$ it follows that $P(\alpha_1)=px$ for some $x\in\Zp$ and so $x+P'(\alpha_1)b\equiv 0\mod p$. 
+    As $P'(\alpha_1)$ is not divisible by $p$, it is invertible in $\Zp$ and so $b_1\equiv -x\left(P'(\alpha_1)\right)^{-1}\mod p$.
+    Such $b_1$ exists in $\{0,1,\dots, p-1\}$, and for such $b_1$ we can set $\alpha_2=\alpha_1+b_1p$ satisfying both conditions.
+
+    Exactly the same procedure can be taken to obtain $\alpha_{n+1}$ from $\alpha_n$ (and choosing $b_n$ in $\{0,1,\dots, p^n-1\}$) and so our sequence exists. As $\alpha_{n+1}-\alpha_n\equiv 0\mod p^n$ it follows that $\absp{\alpha_{n+1}-\alpha_n}\leq p^{-n}$ and so $\langle \alpha_n\rangle$ is Cauchy and it has a limit $\alpha\in\Zp$.
+    Moreover, we have $P(\alpha)=0$ by continuity and so the proof is complete.
+\end{proof}
+
+We will need a more general version of Hensel's Lemma to prove that $\absp{\cdot}$ extends uniquely to algebraic extensions of $\Qp$, and so we note it here. The proof can be found in \cite[p. 129]{jurgen_99}
+\begin{lemma}\label{lemma:gen-hensel}
+    Let $K$ be a field with equipped with a non-Archimedean absolute value $\abs{\cdot}$, a valuation ring $\mcO_K$ and it maximal ideal $M$. 
+    If a primitive polynomial $f\in\mcO_K[X]$ admits modulo $M$ factorization $f=\bar{g}\bar{h}\mod M$ into relatively prime polynomials $\bar{g},\bar{h}\in\mcO/M[X]$, then $f$ admits a factorization $f=gh$ into polynomials $g,h\in\mcO_K[X]$ such that $\deg g=\deg\bar{g}$, $g\equiv\bar{g}\mod M$ and $h\equiv\bar{h}\mod M$
+\end{lemma}
+
+One may see that the proof technique used is quite similar to Newton's method for find real root of a polynomial. 
+We find $\alpha_{n+1}$ by solving $b_n=-x\left(P'(\alpha_n)\right)^{-1}$ so putting it all together we get 
+\[\alpha_{n+1}=\alpha_n-p\frac{P(\alpha_n)}{p}\left(P'(\alpha_n)\right)^{-1}=\alpha_n-\frac{P(\alpha_n)}{P'(\alpha_n)}.\]
+\begin{example} 
+We show that the "square root" of 2\footnote{Meaning, a root of $X^2-2\in\Zp[X]$} is in $\Z_7$. Let $f(X)=X^2-2$. Then modulo 7, 3 and 4 are roots so let $\alpha_1=3$.
+Then $f(\alpha_1)=7$ and $f'(\alpha_1)=6$. As $6^{-1}\equiv 41\mod 7^2$, we have
+\[\alpha_1-\frac{f(\alpha_1)}{f'(\alpha_2)}=\frac{11}{6}\equiv 10\mod 7^2.\]
+So $\alpha_2=10=3+1\cdot 7$
+Continuing in the same manner we find that $\alpha_3=108=3+1\cdot 7+2\cdot 7^2$ and so on. Thus the square root of 2 in $\Z_7$ has an initial expansion $3+1\cdot 7+2\cdot 7^2+6\cdot 7^3+\cdots$.
+\end{example}
+
+Another application of Hensel's lemma is proving that $\Q$ is not complete with respect to $\absp{\cdot}$ when $p=2,3$. The polynomial $X^3+3$ is irreducible over $\Q[X]$ but it has a root modulo 2. 
+Thus by Hensel's lemma it has a root in $\Z_p$ and it follows that $\Q$ is a proper subset of $\Q_2$ so $\Q$ cannot be complete. A similar argument using the polynomial $X^2+2$ when $p=3$ does the trick.

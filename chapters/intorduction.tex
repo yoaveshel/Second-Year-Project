@@ -1,0 +1,36 @@
+\chapter{Introduction}
+The $p$-adic numbers were first discovered\footnote{or invented, depending on your philosophical preferences} by Kurt Hensel in 1897 \cite{Gouvea_2013}, as a way to introduce the tools and techniques of power series into number theory.
+Hensel started with the analogy between $\Z$ and its field of fractions $\Q$ and $\C[X]$ together with its field of fractions, $\C(X)$.
+Both $\Z$ and $\C[X]$ are \textit{unique factorization domains}: any integers factors as $\pm1$ times the product of primes and any polynomial uniquely factors as a product of prime elements $X-\alpha\in\C[X]$.
+Furthermore, any polynomial in $\C[X]$ can be expanded in "base" $X-\alpha$ using its Taylor series around $\alpha$ and for any integer $m\in\Z^+$ and prime $p$ we can write
+\[m=a_0+a_1p+a_2p^2+\cdots+a_np^n,\quad a_i\in\{0,1,\dots, p-1\}.\]
+There is also a natural expansion for $-1$, at least in a formal sense, as
+\[-1=(p-1)+(p-1)p+(p-1)p^2+\cdots\]
+since if we add $1$ we get
+\begin{align*}
+    0&=1-1\\
+    &=1+(p-1)+(p-1)p+(p-1)p^2+\cdots\\
+    &=p^2+(p-1)p^2+(p-1)p^3+\cdots\\
+    &=0.
+\end{align*}
+Note that the powers of $p$ are disappearing "to the right".
+The analogy gets interesting when we start considering rational numbers.
+We know that every rational function in $\C(X)$ has an finite tailed Laurent series around $\alpha\in\C$ as
+${P(X)}/{Q(X)}=\sum_{i\geq k}a_i(X-\alpha)^i$. Working formally, we can obtain a similar series for rational numbers.
+For example, consider $p=3, a=22$ and $b=7$. Then $a=1+p+2p^2, b=1+2p$ and so
+\begin{equation}\label{eq:p-adic-expansion}
+    \frac{a}{b}=\frac{1+p+2p^2}{1+2p}=1-p+4 p^2-8 p^3+16 p^4-32 p^5+\cdots.
+\end{equation}
+It is easy to check that the above expansion is correct by multiplying both side by $b=1+2p$.
+
+To make such expansions rigorous, we must define a new metric on $\Q$, such that larger powers of $p$ become increasingly small so that the series such as the one in (\ref{eq:p-adic-expansion}) actually converges.
+This gives us the $p$-adic metric $\absp{\cdot}$ defined in section \ref{sec:p-adic-metric}. 
+Furthermore, we know that every rational function has a Laurent expansion around $\alpha$, but not every Laurent expansion corresponds to a rational function (for example the Laurent series for $e^z$). 
+This gives us the inclusion $\C(X)\hookrightarrow\C((X-\alpha))$ \nomenclature{$K((X))$}{field of finite-tailed formal power series with coefficients in $K$}. 
+The field of all formal power series in $p$ is denoted $\Qp$ and is defined as the completion of $\Q$ with respect to $\absp{\cdot}$ in section \ref{sec:field-qp}.
+After discussing an application of $p$-adic numbers to solving congruence relations modulo a prime $p$ in section \ref{sec:hensels-lemma} we move to the problem of construction a complete and algebraically closed field of $p$-adic numbers, analogous to the field $\C$ of complex numbers.
+
+Using the standard norm on $\Q$, we can complete it to get the field $\R$ and then take the algebraic closure to end up with $\C$, a complete and algebraically closed field.
+In the $p$-adic world, things get a bit more complicated. In chapter 3 we show that $\Qp$ is not algebraically closed and takes its algebraic closure $\overline{\Qp}$.
+However, $\overline{\Qp}$ is not complete anymore, and so we take its completion again to get $\Cp$. We then prove that the completion of an algebraic closure of a complete field is always algebraically closed.
+Finally, in chapter 4 Newton polygons are introduced as a way to analyze roots of polynomials and radius of convergence of power series.
